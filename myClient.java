@@ -2,43 +2,54 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class myClient{
-   
-    public String ipAddress = "";
-    public String port = "";
-    
+public class myClient
+{
 
-    public myClient(String ipAddress, String port){
-    	this.ipAddress = ipAddress;
-	this.port = port;
-    }
+  public String ipAddress = "";
+  public String port = "";
 
-    public void getIPAddress(){
-        // System.out.println(request.getRemoteAddr()):
-    }
-    
-    public void startEcho(){
-    }
-    
-    public void stopEcho(){
-    }
-    
-    public void disconnect(){
-    	System.out.println("bye");
-    	System.out.println("Session is terminated.");
-    }
 
-    public static void main(String[] args){
-	myClient client = new myClient(args[0], args[1]);
+  public myClient(String ipAddress, String port)
+  {
+    this.ipAddress = ipAddress;
+    this.port = port;
+  }
 
-        System.out.println("Hello World!");
-	Scanner reader = new Scanner(System.in);
-	while(reader.hasNext()){
-	    String command = reader.next();
-            
-	}
-	reader.close();
+  public void run()
+  {
+  }
+
+  public void getIPAddress()
+  {
+    // System.out.println(request.getRemoteAddr()):
+  }
+
+  public void startEcho()
+  {
+  }
+
+  public void stopEcho()
+  {
+  }
+
+  public void disconnect()
+  {
+    System.out.println("bye");
+    System.out.println("Session is terminated.");
+  }
+
+  public static void main(String[] args)
+  {
+    myClient client = new myClient(args[0], args[1]);
+    client.run();
+    System.out.println("Hello World!");
+    Scanner reader = new Scanner(System.in);
+    while(reader.hasNext()){
+      String command = reader.next();
+
     }
+    reader.close();
+  }
 
 
 }
