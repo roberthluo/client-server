@@ -23,38 +23,37 @@ public class myServer
 
   public void run(int portNumber)
   {
+    while(true){
+      try{
+        ServerSocket requestSocket = new ServerSocket(portNumber);
+        Socket connection = requestSocket.accept();
 
-    try{
-      ServerSocket requestSocket = new ServerSocket(portNumber);
-      Socket connection = requestSocket.accept();
+        // Needs to accept connection before continuing
+        System.out.println("Session has been established.");
+        in = new ObjectInputStream(connection.getInputStream());
+        out = new ObjectOutputStream(connection.getOutputStream());
+        out.flush();
 
-      // Needs to accept connection before continuing
-      System.out.println("Session has been established.");
-      in = new ObjectInputStream(connection.getInputStream());
-      out = new ObjectOutputStream(connection.getOutputStream());
-      out.flush();
+        do{
+          try{
+            message = (String)in.readObject();
+            writer.println("client>" + message);
+            sendMessage(message);
 
-      do{
-        try{
-          message = (String)in.readObject();
-          message = "bye";
-          writer.println("client>" + message);
-          if(message.equals("bye")){
-            sendMessage("bye");
           }
-        }
-        catch(Exception e){
-          System.err.println(e);
-        }
+          catch(Exception e){
+            System.err.println(e);
+          }
 
-      }while(!message.equals("bye"));
+        }while(!message.equals("bye"));
+      }
+      catch(Exception e){
+        System.out.println(e);
+      }
+      //closing writer
+      writer.println("End of log.");
+      writer.close();
     }
-    catch(Exception e){
-      System.out.println(e);
-    }
-    //closing writer
-    writer.println("End of log.");
-    writer.close();
 
   }
 
@@ -73,8 +72,9 @@ public class myServer
   public static void main(String args[])
   {
     myServer server = new myServer();
-    System.out.println("New Server");
-    server.run(1222);
+    System.out.println("New Server port:" + args[0]);
+    int port = Integer.parseInt(args[0]);
+    server.run(port);
     Runtime.getRuntime().addShutdownHook(new Thread()
     {
       public void run()
