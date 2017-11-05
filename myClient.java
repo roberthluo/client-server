@@ -9,13 +9,14 @@ public class myClient
   public int port = 0;
   BufferedWriter bw;
 
+  //Constructor for myClient class
   public myClient(String ipAddress, int port)
   {
     this.ipAddress = ipAddress;
     this.port = port;
 
     try{
-      //Send the message to the server
+      //Create a new Socket to connect on same port
       socket = new Socket(ipAddress, port);
       OutputStream os = socket.getOutputStream();
       OutputStreamWriter osw = new OutputStreamWriter(os);
@@ -33,11 +34,13 @@ public class myClient
 
   }
 
+  //Gets IP address of client from the server
   public void getIPAddress()
   {
     System.out.println("server:"+ socket.getRemoteSocketAddress());
   }
 
+  // Echos same commands from client to server then back
   public void startEcho()
   {
     System.out.println("listening");
@@ -45,7 +48,8 @@ public class myClient
 
     while(true){
       String command = reader.next();
-      if(command.equals("stopEcho")){
+      if(command.equals("stopEcho"))
+      {
         break;
       }
 
@@ -54,17 +58,18 @@ public class myClient
       //Get the return message from the server
       try
       {
+        //Creates an input and outputstream to read from and write to the server
         bw.write(sendMessage);
         bw.flush();
         OutputStream os = socket.getOutputStream();
         OutputStreamWriter osw = new OutputStreamWriter(os);
         bw = new BufferedWriter(osw);
-        System.out.println("Message sent to the server : "+sendMessage);
+
         InputStream is = socket.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
         String message = br.readLine();
-        System.out.println("Message received from the server : " +message + "\n");
+        System.out.println("echo> " +message + "\n");
       }
       catch (Exception exception)
       {
@@ -75,10 +80,11 @@ public class myClient
     System.out.println("stopped");
   }
 
-
+  // Disconnects for the server
   public void disconnect()
   {
-    try{
+    try
+    {
       socket.close();
     }
     catch(IOException ioException){
@@ -95,11 +101,10 @@ public class myClient
 
     Scanner reader = new Scanner(System.in);
 
-    while(!reader.equals("bye")){
+    while(true){
       String command = reader.next();
       System.out.print("operation>");
       if(command.equals("whoAMi")){
-        System.out.println("whoAMIi");
         client.getIPAddress();
       }
       else if(command.equals("startEcho")){

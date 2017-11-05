@@ -3,46 +3,60 @@ import java.net.*;
 
 public class myServer
 {
+  //Declaring input and output streams and socket
   ObjectOutputStream out;
   ObjectInputStream in;
-  String message = "";
-  File file = new File("log.txt");
   public static PrintWriter writer;
-  ServerSocket requestSocket;
   private static Socket socket;
 
   public static void main(String args[])
   {
+    try{
+      PrintWriter writer = new PrintWriter("log.txt", "UTF-8");
+    }
+    catch(Exception e){
+      e.printStackTrace();
+    }
     try
     {
-
       int port = Integer.parseInt(args[0]);
       ServerSocket serverSocket = new ServerSocket(port);
+
+      //socket is connected to client
       socket = serverSocket.accept();
-      System.out.println("Server Started and listening to the port "+ port);
+      System.out.println("Session has been established.");
 
       //Server is running always. This is done using this while(true) loop
       while(true)
       {
-        //Reading the message from the client
+        //Reading the message from the client.
         InputStream is = socket.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
         String message = br.readLine();
 
+        //Server accepts new connections when client socket is terminated
         if(message == null){
+          System.out.println("Session is terminated.");
           socket = serverSocket.accept();
+          System.out.println("Session has been established.");
+          is = socket.getInputStream();
+          isr = new InputStreamReader(is);
+          br = new BufferedReader(isr);
+          message = br.readLine();
         }
-        System.out.println("Message received from client is "+message);
+        else{
+          System.out.println("Message received from client is "+message);
+        }
 
         String returnMessage;
         try
         {
-            returnMessage = "server:" + message + "\n";
+            returnMessage = message + "\n";
         }
         catch(Exception e)
         {
-            //Input was not a number. Sending proper message back to client.
+            //Input was not correct. Sending proper message back to client.
             returnMessage = "Please send a proper message\n";
         }
 
@@ -51,7 +65,6 @@ public class myServer
         OutputStreamWriter osw = new OutputStreamWriter(os);
         BufferedWriter bw = new BufferedWriter(osw);
         bw.write(returnMessage);
-        System.out.println("Message sent to the client is "+returnMessage);
         bw.flush();
       }
     }
@@ -59,15 +72,7 @@ public class myServer
     {
       e.printStackTrace();
     }
-    // finally
-    // {
-    //   try
-    //   {
-    //     socket.close();
-    //   }
-    //   catch(Exception e){}
-    //   }
-    // }
+    writer.close();
   }
 
 }
