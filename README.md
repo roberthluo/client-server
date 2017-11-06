@@ -22,50 +22,50 @@ Example input and output
 
 
 
-[200~[robert@localhost client-server]$ java myClient 172.17.0.1 9999
-Session has been established.
-jejej
-operation>ne
-operation>whoAMi
-operation>server:/172.17.0.1:9999
-he
-operation>nekjke
-operation>hello
-operation>how
-operation>ne
-operation>me
-operation>startEcho
-operation>listening
-jehehe
-echo> jehehe
+[200~[robert@localhost client-server]$ java myClient 172.17.0.1 9999  
+Session has been established.  
+jejej  
+operation>ne  
+operation>whoAMi  
+operation>server:/172.17.0.1:9999  
+he  
+operation>nekjke  
+operation>hello  
+operation>how  
+operation>ne  
+operation>me  
+operation>startEcho  
+operation>listening  
+jehehe  
+echo> jehehe  
 
-nm,m,meh
-echo> nm,m,meh
+nm,m,meh  
+echo> nm,m,meh  
 
-lklkle
-echo> lklkle
+lklkle  
+echo> lklkle  
 
-mmme
-echo> mmme
+mmme  
+echo> mmme  
 
-nnvm
-echo> nnvm
+nnvm  
+echo> nnvm  
 
 jejhbe
-echo> jejhbe
+echo> jejhbe  
 
-bye 
-echo> bye
+bye   
+echo> bye  
 
-stop Echo
-echo> stop
+stop Echo  
+echo> stop  
 
-echo> Echo
+echo> Echo  
 
-stopEcho
-stopped
-bye
-operation>bye
-Session is terminated.
-End of client session.
-
+stopEcho  
+stopped  
+bye  
+operation>bye  
+Session is terminated.  
+End of client session.  
+ 
